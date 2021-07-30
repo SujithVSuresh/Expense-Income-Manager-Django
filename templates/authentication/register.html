@@ -1,0 +1,15 @@
+{% extends 'base_auth.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+<form method="POST" action="">
+    {% csrf_token %}
+    {{form|crispy}}
+    <input class="btn btn-info" type="submit" name="register-user">
+</form>
+<small class="text-muted">
+    Already have an Account? <a class="ml-2" href="{% url 'login' %}">Login</a>
+</small>
+
+{% endblock %}

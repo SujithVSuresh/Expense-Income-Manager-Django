@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<div class="mt-4">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'expenses:expenses' %}">Expenses</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Expenses</li>
+  </ol>
+</nav>
+</div>
+
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-md-7">
+        <form method="POST" action="">
+          {% csrf_token %}
+          {{edit_form|crispy}}
+          <input class="btn btn-info float-right mt-2" type="submit" name="edit-expenses-form">
+        </form>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

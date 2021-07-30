@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-10">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="{% url 'income:income' %}">Income</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">My Income</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-md-2">
+            <a href="{% url 'income:add-income' %}" class="btn btn-primary">Add Income</a>
+        </div>
+    </div>
+
+    <a href="{% url 'income:export-excel' %}" class="btn btn-primary">Export Excel</a>
+
+
+<div class="container mt-3">
+    <div class="row">
+      <div class="col-md-9">
+          <table class="table table-hover table-stripped">
+          <thead>
+              <tr>
+                  <th>Amount({{currency.currency}})</th>
+                  <th>Source</th>
+                  <th>Description</th>
+                  <th>Date</th>
+                  <th></th>
+                  <th></th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for income in income_by_date %}
+              <tr>
+                  <td>{{income.amount}}</td>
+                  <td>{{income.source}}</td>
+                  <td>{{income.description}}</td>
+                  <td>{{income.date}}</td>
+                  <td>
+                      <a href="{% url 'income:edit-income' income.id %}"
+                      class="btn btn-secondary btn-sm"
+                      >Edit</a>
+                  </td>
+                  <td>
+                      <a href="{% url 'income:delete-income' income.id %}"
+                      class="btn btn-danger btn-sm"
+                      >Delete</a>
+                  </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+  </div>
+  
+      <div class="col-md-3">
+          <div class="card card-body">
+              <form method="get">
+                {{filter.form|crispy}}
+              <button class="btn btn-primary btn-sm mt-2" type="submit">Search</button>
+            </form>
+          </div>
+      </div>
+
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3 offset-md-4">
+    <ul class="pagination">
+      {% if income_by_date.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ income_by_date.previous_page_number }}">Previous</a>
+      </li>
+      {% endif %}
+
+      <li class="page-item active">
+        <a class="page-link" href="?page={{ income_by_date.number }}">Current</a>
+      </li>
+
+      {% if income_by_date.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ income_by_date.next_page_number }}">Next</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+</div>
+
+  
+{% endblock %}
+
+
+

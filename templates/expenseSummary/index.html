@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+
+{{today_filter.amount__sum}}
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-10">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="">Expense summary</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Expenses</li>
+                </ol>
+            </nav>
+        </div>
+
+<div class="col-md-9">
+    <table class="table table-hover table-stripped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Total Amount({{currency.currency}})</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sum in sum_of_daily %}
+        <tr>
+            <td>{{sum.date}}</td>
+            <td>{{sum.sum}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+<div class="col-md-3">
+    <div class="card card-body">
+        <form method="get">
+            {{filter.form|crispy}}
+        <button class="btn btn-primary btn-sm mt-2" type="submit">Search</button>
+      </form>
+    </div>
+</div>
+
+
+
+
+<div class="column">
+
+<div class="col-md-5">
+
+
+
+    <div claSS="card card-body" style="border-color:black">
+        <h5>Filter Monthly Expenses</h5>
+        <form method="GET">
+            <label>Enter year</label>
+            <input type="text" name="year_monthly" placeholder="YYYY"><br>
+            <label>Enter month</label>
+            <input type="text" name="month_monthly" placeholder="MM"><br>
+            <input type="submit">
+        </form>
+        <hr>
+        <h1 style="text-align: center;padding: 10px">{{monthly_expenses.amount__sum}}</h1>
+    </div>
+
+    <div class="card card-body" style="border-color:black">
+        <h5>Filter Yearly Expenses</h5>
+        <form method="GET">
+            <label>Enter year</label>
+            <input type="text" name="year_yearly" placeholder="YYYY"><br>
+            <input type="submit">
+        </form>
+        <hr>
+        <h1 style="text-align: center;padding: 10px">{{yearly_expenses.amount__sum}}</h1>
+    </div>
+
+</div>
+</div>
+</div>
+{{total_expenses}}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-body" style="border-color:black">
+            <h5>Last 7 days Expenses</h5>
+            <hr>
+            <h1 style="text-align: center;padding: 10px">{{amount.amount__sum}}</h1>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+    </div>
+   
+   
+    <!--<form method="GET" action="">
+        
+        <input type="submit">
+    </form>-->
+
+{% endblock %}
