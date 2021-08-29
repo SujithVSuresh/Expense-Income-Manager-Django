@@ -74,9 +74,9 @@ WSGI_APPLICATION = 'expenseManager.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'incomeexpenses',
+        'NAME': '',
         'USER': 'postgres',
-        'PASSWORD': 'vavanikunnel123',
+        'PASSWORD': '',
         'HOST': 'localhost',
     }
 }
